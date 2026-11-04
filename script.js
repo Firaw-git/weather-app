@@ -9,7 +9,7 @@ function setStatus(message, isError = false) {
   statusEl.classList.toggle("error", isError);
 }
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const city = cityInput.value.trim();
@@ -19,5 +19,33 @@ form.addEventListener("submit", (event) => {
     return;
   }
 
+  searchBtn.disabled = true;
   setStatus(`Searching for ${city}...`);
+
+  try {
+    const place = await getCoordinates(city);
+    setStatus(`Found: ${place.name}, ${place.country}`);
+  } catch (error) {
+    setStatus(error.message, true);
+  } finally {
+    searchBtn.disabled = false;
+  }
 });
+
+async function getCoordinates(city) {
+  const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`;
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Geocoding failed (${response.status})`);
+  }
+
+  const data = await response.json();
+
+  if (!data.results || data.results.length === 0) {
+    throw new Error(`Could not find a city called "${city}".`);
+  }
+
+  return data.results[0];
+}
