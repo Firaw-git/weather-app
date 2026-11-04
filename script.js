@@ -24,7 +24,8 @@ form.addEventListener("submit", async (event) => {
 
   try {
     const place = await getCoordinates(city);
-    setStatus(`Found: ${place.name}, ${place.country}`);
+    const parts = [place.name, place.admin1, place.country].filter(Boolean);
+    setStatus(`Found: ${parts.join(", ")}`);
   } catch (error) {
     setStatus(error.message, true);
   } finally {
