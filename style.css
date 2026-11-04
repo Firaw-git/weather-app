@@ -1,27 +1,48 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
+  font-family: system-ui, sans-serif;
+  background: #eef3f8;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  transition: background 0.8s;
+  body[data-weather="clear"] {
+    background: linear-gradient(#3a9bff, #bfe6ff);
+  }
+  body[data-weather="cloudy"] {
+    background: linear-gradient(#8fa3b8, #d5dde6);
+  }
+  body[data-weather="fog"] {
+    background: linear-gradient(#a9b2ba, #dfe3e6);
+  }
+  body[data-weather="rain"] {
+    background: linear-gradient(#4b5d73, #8795a6);
+  }
+  body[data-weather="snow"] {
+    background: linear-gradient(#b9c8d9, #f2f6fa);
+  }
+  body[data-weather="storm"] {
+    background: linear-gradient(#232a3a, #4a5568);
+  }
 
-    font-family: system-ui, sans-serif;
-    background: #eef3f8;
-    display: flex;
-    justify-content: center;
-    padding: 2rem 1rem;
+  body[data-day="night"] {
+    background: linear-gradient(#0b1026, #2b3a67);
+  }
 }
 
 .app {
-
-    background: white;
-    width: 100%;
-    max-width: 420px;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: white;
+  width: 100%;
+  max-width: 420px;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 h1 {
   margin-bottom: 1rem;
