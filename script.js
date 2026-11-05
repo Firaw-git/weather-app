@@ -98,7 +98,6 @@ form.addEventListener("submit", async (event) => {
     setStatus("Please enter a city name.", true);
     return;
   }
-
   searchBtn.disabled = true;
   setStatus(`Searching for ${city}...`);
 

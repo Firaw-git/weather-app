@@ -92,3 +92,134 @@ button:disabled {
 .weather-card h2 {
   margin-bottom: 0.5rem;
 }
+
+#scene {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+}
+
+.sun {
+  display: none;
+  position: absolute;
+  top: 6%;
+  right: 10%;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(
+    rgba(255, 230, 100, 0.8) 0 6deg,
+    transparent 6deg 24deg
+  );
+  -webkit-mask-image: radial-gradient(
+    circle closest-side,
+    #000 50%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(circle closest-side, #000 50%, transparent 100%);
+  animation: spin 40s linear infinite;
+}
+
+.sun::after {
+  content: "";
+  position: absolute;
+  inset: 45px;
+  border-radius: 50%;
+  background: #ffd93b;
+  box-shadow: 0 0 30px rgba(255, 217, 59, 0.8);
+}
+
+body[data-weather="clear"]:not([data-day="night"]) .sun {
+  display: block;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cloud {
+  display: none;
+  position: absolute;
+  left: 0;
+  width: 120px;
+  height: 40px;
+  background: #fff;
+  border-radius: 40px;
+  opacity: 0.9;
+  animation: drift linear infinite;
+}
+
+.cloud::before,
+.cloud::after {
+  content: "";
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+
+.cloud::before {
+  width: 50px;
+  height: 50px;
+  top: -25px;
+  left: 18px;
+}
+
+.cloud::after {
+  width: 70px;
+  height: 70px;
+  top: -35px;
+  left: 50px;
+}
+
+.cloud-1 {
+  top: 12%;
+  --s: 1;
+  animation-duration: 60s;
+}
+.cloud-2 {
+  top: 28%;
+  --s: 1.4;
+  animation-duration: 90s;
+  animation-delay: -30s;
+}
+.cloud-3 {
+  top: 45%;
+  --s: 0.8;
+  animation-duration: 75s;
+  animation-delay: -50s;
+}
+
+@keyframes drift {
+  from {
+    transform: translateX(-250px) scale(var(--s, 1));
+  }
+  to {
+    transform: translateX(110vw) scale(var(--s, 1));
+  }
+}
+
+body[data-weather="cloudy"] .cloud,
+body[data-weather="rain"] .cloud,
+body[data-weather="storm"] .cloud,
+body[data-weather="snow"] .cloud,
+body[data-weather="fog"] .cloud {
+  display: block;
+}
+
+body[data-weather="rain"] .cloud {
+  background: #9aa7b5;
+}
+body[data-weather="storm"] .cloud {
+  background: #5b6578;
+}
+body[data-day="night"] .cloud {
+  opacity: 0.35;
+}
