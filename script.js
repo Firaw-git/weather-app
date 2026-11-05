@@ -4,6 +4,26 @@ const searchBtn = document.querySelector("#search-btn");
 const statusEl = document.querySelector("#status");
 const result = document.querySelector("#result");
 
+const rainLayer = document.querySelector("#rain");
+const snowLayer = document.querySelector("#snow");
+
+function fillLayer(layer, className, count, minDuration, maxDuration) {
+  for (let i = 0; i < count; i++) {
+    const el = document.createElement("span");
+    el.className = className;
+    el.style.left = `${Math.random() * 100}%`;
+
+    const duration = minDuration + Math.random() * (maxDuration - minDuration);
+    el.style.animationDuration = `${duration}s`;
+    el.style.animationDelay = `-${Math.random() * maxDuration}s`;
+
+    layer.append(el);
+  }
+}
+
+fillLayer(rainLayer, "drop", 90, 0.6, 1.1);
+fillLayer(snowLayer, "flake", 60, 6, 12);
+
 function setStatus(message, isError = false) {
   statusEl.textContent = message;
   statusEl.classList.toggle("error", isError);

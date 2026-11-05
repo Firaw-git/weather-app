@@ -223,3 +223,87 @@ body[data-weather="storm"] .cloud {
 body[data-day="night"] .cloud {
   opacity: 0.35;
 }
+
+.layer {
+  display: none;
+  position: absolute;
+  inset: 0;
+}
+
+.drop {
+  position: absolute;
+  top: -80px;
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(transparent, rgba(255, 255, 255, 0.6));
+  animation: fall linear infinite;
+}
+
+.flake {
+  position: absolute;
+  top: -10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.9;
+  animation: snowfall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+  }
+}
+
+@keyframes snowfall {
+  to {
+    transform: translate(40px, 110vh);
+  }
+}
+
+body[data-weather="rain"] #rain,
+body[data-weather="storm"] #rain,
+body[data-weather="snow"] #snow {
+  display: block;
+}
+
+#flash {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+}
+
+body[data-weather="storm"] #flash {
+  display: block;
+  animation: lightning 7s infinite;
+}
+
+@keyframes lightning {
+  0%,
+  90%,
+  94%,
+  100% {
+    opacity: 0;
+  }
+  91% {
+    opacity: 0.8;
+  }
+  92% {
+    opacity: 0.1;
+  }
+  93% {
+    opacity: 0.6;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sun,
+  .cloud,
+  .drop,
+  .flake,
+  #flash {
+    animation: none;
+  }
+}
